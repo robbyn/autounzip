@@ -81,6 +81,7 @@ public class Unzipper implements Runnable {
                 LOG.log(Level.INFO, "File to unzip: {0}", name);
                 File inFile = new File(inputDir, name);
                 File file = new File(backupDir, name);
+                backupDir.mkdirs();
                 if (file.exists()) {
                     LOG.log(Level.WARNING, "Overwriting file: {0}", file);
                     file.delete();
@@ -91,7 +92,7 @@ public class Unzipper implements Runnable {
                     try (ZipFile zip = new ZipFile(file, ZipFile.OPEN_READ)) {
                         File outDir = new File(outputDir,
                                 removeExt(name, ".zip"));
-                        if (!outDir.mkdir()) {
+                        if (!outDir.mkdirs()) {
                             throw new IOException(
                                     "Could not create folder: " + outDir);
                         }
