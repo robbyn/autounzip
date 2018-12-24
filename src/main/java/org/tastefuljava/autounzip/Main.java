@@ -55,9 +55,7 @@ public class Main {
             Unzipper unzipper = new Unzipper(conf);
             builder.save();
             unzipper.run();
-        } catch (ConfigurationException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ConfigurationException | IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -68,7 +66,7 @@ public class Main {
             try (InputStream inputStream = Main.class.getResourceAsStream(
                     "default-logging.properties")) {
                 LogManager.getLogManager().readConfiguration(inputStream);
-            } catch (final IOException e) {
+            } catch (IOException e) {
                 LOG.severe(e.getMessage());
             }
         }
